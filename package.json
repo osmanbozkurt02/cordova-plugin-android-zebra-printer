@@ -1,0 +1,14 @@
+{
+  "name": "cordova-plugin-android-zebra-printer",
+  "version": "0.1.1",
+  "description": "Zebra Image Printer",
+  "cordova": {
+    "id": "cordova-plugin-android-zebra-printer",
+    "platforms": []
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "GBM",
+  "license": "ISC"
+}

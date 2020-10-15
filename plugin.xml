@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-android-zebra-printer" version="0.1.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<name>ZebraPrinterAndroid</name>
+<js-module name="ZebraPrinterAndroid" src="www/ZebraPrinterAndroid.js">
+<clobbers target="cordova.plugins.ZebraPrinterAndroid" />
+</js-module>
+<platform name="android"><config-file parent="/*" target="res/xml/config.xml">
+<feature name="PrintImage">
+<param name="android-package" value="cordova.plugin.android.zebra-printer.ZebraPrinterAndroid" /></feature></config-file><config-file parent="/*" target="AndroidManifest.xml"></config-file><source-file src="src/android/ZebraPrinterAndroid.java" target-dir="src/cordova-plugin-android-zebra-printer/ZebraPrinterAndroid" /></platform></plugin>
