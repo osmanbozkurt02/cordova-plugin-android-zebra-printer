@@ -4,6 +4,22 @@
 <js-module name="ZebraPrinterAndroid" src="www/ZebraPrinterAndroid.js">
 <clobbers target="cordova.plugins.ZebraPrinterAndroid" />
 </js-module>
-<platform name="android"><config-file parent="/*" target="res/xml/config.xml">
+<platform name="android">
+<config-file parent="/*" target="res/xml/config.xml">
 <feature name="PrintImage">
-<param name="android-package" value="cordova.plugin.android.zebra-printer.ZebraPrinterAndroid" /></feature></config-file><config-file parent="/*" target="AndroidManifest.xml"></config-file><source-file src="src/android/ZebraPrinterAndroid.java" target-dir="src/cordova-plugin-android-zebra-printer/ZebraPrinterAndroid" /></platform></plugin>
+<param name="android-package" value="cordova.plugin.android.zebra-printer.ZebraPrinterAndroid" />
+</feature></config-file><config-file parent="/*" target="AndroidManifest.xml"></config-file>
+<source-file src="src/android/ZebraPrinterAndroid.java" target-dir="src/cordova/plugin/android/zebra/printer/ZebraPrinterAndroid" />
+<source-file src="commons-io-2.2.jar" target-dir="libs" />
+<source-file src="commons-lang3-3.4.jar" target-dir="libs" />
+<source-file src="commons-net-3.1.jar" target-dir="libs" />
+<source-file src="commons-validator-1.4.0.jar" target-dir="libs" />
+<source-file src="jackson-annotations-2.2.3.jar" target-dir="libs" />
+<source-file src="jackson-core-2.2.3.jar" target-dir="libs" />
+<source-file src="jackson-databind-2.2.3.jar" target-dir="libs" />
+<source-file src="opencsv-2.2.jar" target-dir="libs" />
+<source-file src="snmp6_1.jar" target-dir="libs" />
+<source-file src="ZSDK_ANDROID_API.jar" target-dir="libs" />
+
+<framework src="src/android/extras.gradle" custom="true" type="gradleReference"/>
+</platform></plugin>
