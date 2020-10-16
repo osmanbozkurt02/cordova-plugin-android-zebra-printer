@@ -9,7 +9,7 @@
 <feature name="PrintImage">
 <param name="android-package" value="cordova.plugin.android.zebra-printer.ZebraPrinterAndroid" />
 </feature></config-file><config-file parent="/*" target="AndroidManifest.xml"></config-file>
-<source-file src="src/android/ZebraPrinterAndroid.java" target-dir="src/cordova/plugin/android/zebra/printer/ZebraPrinterAndroid" />
+<source-file src="src/android/ZebraPrinterAndroid.java" target-dir="src/cordova/plugin/android/zebra/printer" />
 <source-file src="commons-io-2.2.jar" target-dir="libs" />
 <source-file src="commons-lang3-3.4.jar" target-dir="libs" />
 <source-file src="commons-net-3.1.jar" target-dir="libs" />
