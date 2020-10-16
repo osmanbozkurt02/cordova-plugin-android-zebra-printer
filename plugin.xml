@@ -15,7 +15,7 @@
         <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
 </config-file>
-<source-file src="src/android/cordova/plugin/zebra/printer/ZebraPrinterAndroid.java" target-dir="src/android/cordova/plugin/zebra/printer/" />
+<source-file src="src/android/cordova/plugin/zebra/printer/ZebraPrinterAndroid.java" target-dir="src/cordova/plugin/zebra/printer/" />
 <!-- <source-file src="src/android/lib/commons-io-2.2.jar" target="libs/commons-io-2.2.jar" />
 <source-file src="src/android/lib/commons-lang3-3.4.jar" target="libs/commons-lang3-3.4.jar" />
 <source-file src="src/android/lib/commons-net-3.1.jar" target="libs/commons-net-3.1.jar" />
