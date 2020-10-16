@@ -88,31 +88,11 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
         }
     }
 
-
-
-
-
-
-
-
-
-    private void PrintImagePreview(String MacAddress, String ImageUrl, CallbackContext callbackContext) {
-        if (MacAddress != null && MacAddress.length() > 0) {
-            PrintImage(callbackContext, ImageUrl, MacAddress);
-
-        } else {
-            callbackContext.error("Expected one non-empty string argument.");
-        }
-    }
-
-
+ 
 
 
     public String PrintImage(CallbackContext callbackContext, String ImageUrl, String macAddress){
-      //  String ImageUrl = "https://xenon.gbmsoft.com/XenonMobileServices/Contents/Report3.jpg";
-
-      //String macAddress = "04:EE:03:DB:42:34";
-
+    
 
         new Thread(new GetBitmapTask(""+ImageUrl, new GetBitmapTask.Callback() {
             @Override public void onFinish(Bitmap bitmap) {
@@ -121,7 +101,7 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
             }
 
             @Override public void onError(Throwable t) {
-                //here you have to handle error
+         
             }
         })).start();
 
