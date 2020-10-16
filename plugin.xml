@@ -25,7 +25,8 @@
 <source-file src="src/android/lib/jackson-databind-2.2.3.jar" target="libs/jackson-databind-2.2.3.jar" />
 <source-file src="src/android/lib/opencsv-2.2.jar" target="libs/opencsv-2.2.jar" />
 <source-file src="src/android/lib/snmp6_1.jar" target="libs/snmp6_1.jar" /> -->
-<source-file src="src/android/lib/ZSDK_ANDROID_API.jar" target="libs/ZSDK_ANDROID_API.jar" />
+<!-- <source-file src="src/android/lib/ZSDK_ANDROID_API.jar" target="libs/ZSDK_ANDROID_API.jar" /> -->
+        <lib-file src="src/android/lib/ZSDK_ANDROID_API.jar" target="libs/ZSDK_ANDROID_API.jar"/>
 
 <!-- <framework src="src/android/extras.gradle" custom="true" type="gradleReference"/> -->
 </platform></plugin>
