@@ -61,47 +61,44 @@ private Connection connection;
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
         if (action.equals("PrintAction")) {
-            String MacAddress = args.getString(0);
-            String ImageUrl = args.getString(1);
+            String MacAddress = null;
+            String ImageUrl = "";
             try {
-                this.PrintImagePreview(MacAddress, ImageUrl, callbackContext);
+                MacAddress = args.getString(0);
+                 ImageUrl = args.getString(1);
             } catch (JSONException e) {
-                //TODO: handle exception
+                e.printStackTrace();
             }
-            catch (ConnectionException e) {
-                //TODO: handle exception
-            }
-   
+     
+            this.PrintImagePreview(MacAddress, ImageUrl, callbackContext);
             return true;
         }else
         if (action.equals("SendCommandToPrinter")) {
-            String MacAddress = args.getString(0);
-            String CommandText = args.getString(1);
-
+            String MacAddress = null;
+            String CommandText = "";
             try {
-                this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
+                MacAddress = args.getString(0);
+                CommandText = args.getString(1);
             } catch (JSONException e) {
-                //TODO: handle exception
+                e.printStackTrace();
             }
-            catch (ConnectionException e) {
-                //TODO: handle exception
-            }
-
-        
+   
+            this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
             return true;
         } else  if (action.equals("GetPrinterLanguage")) {
-            String MacAddress = args.getString(0);
-
+            String MacAddress = null;
+            try {
+                MacAddress = args.getString(0);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             try {
                 this.GetPrinterLanguage(MacAddress, callbackContext);
+            } catch (ConnectionException e) {
+                e.printStackTrace();
             } catch (JSONException e) {
-                //TODO: handle exception
+                e.printStackTrace();
             }
-            catch (ConnectionException e) {
-                //TODO: handle exception
-            }
-
-      
             return true;
         }
         return false;
