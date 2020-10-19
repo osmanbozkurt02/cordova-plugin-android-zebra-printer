@@ -59,7 +59,9 @@ private Connection connection;
 
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException, ConnectionException {
+    
+
         if (action.equals("PrintAction")) {
             String MacAddress = null;
             String ImageUrl = "";
@@ -69,7 +71,7 @@ private Connection connection;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-     
+
             this.PrintImagePreview(MacAddress, ImageUrl, callbackContext);
             return true;
         }else
@@ -82,7 +84,7 @@ private Connection connection;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-   
+
             this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
             return true;
         } else  if (action.equals("GetPrinterLanguage")) {
@@ -92,15 +94,13 @@ private Connection connection;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            try {
+
                 this.GetPrinterLanguage(MacAddress, callbackContext);
-            } catch (ConnectionException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+
             return true;
         }
+        
+
         return false;
     }
 
@@ -242,16 +242,30 @@ private Connection connection;
     private void GetPrinterLanguage(String MacAddress, CallbackContext callbackContext) throws ConnectionException, JSONException {
 
         connection = new BluetoothConnection(MacAddress);
-        connection.open();
+        try {
+            connection.open();
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
 
-        final String printerLanguage = SGD.GET("device.languages", connection);
+        final String printerLanguage;
+        try {
+            printerLanguage = SGD.GET("device.languages", connection);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
 
         final String displayPrinterLanguage = "Printer Language is " + printerLanguage;
 
 
         JSONObject obj = new JSONObject();
-        obj.put("printerLanguage", ""+connection);
-        obj.put("displayPrinterLanguage", ""+printerLanguage);
+        try {
+            obj.put("printerLanguage", ""+connection);
+            obj.put("displayPrinterLanguage", ""+printerLanguage);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         callbackContext.success(obj);
 
