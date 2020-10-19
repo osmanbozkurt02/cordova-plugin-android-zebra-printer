@@ -35,6 +35,8 @@ import android.os.Looper;
  * This class echoes a string called from JavaScript.
  */
 public class ZebraPrinterAndroid extends CordovaPlugin {
+    
+        private Connection connection;
 
 //    @Override
 //    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
