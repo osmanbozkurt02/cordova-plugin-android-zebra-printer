@@ -318,10 +318,7 @@ private Connection connection;
 
                 } catch (ZebraPrinterLanguageUnknownException e) {
 
-                } catch (JSONException e) {
-
-                    callbackContext.error(""+e.getMessage());
-                } finally {
+                }   finally {
 
 
                     Looper.myLooper().quit();
