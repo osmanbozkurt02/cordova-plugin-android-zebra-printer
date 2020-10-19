@@ -248,7 +248,7 @@ private Connection connection;
             e.printStackTrace();
         }
 
-        final String printerLanguage;
+        final String printerLanguage = "";
         try {
             printerLanguage = SGD.GET("device.languages", connection);
         } catch (ConnectionException e) {
