@@ -61,7 +61,7 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException, ConnectionException {
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
         if (action.equals("PrintAction")) {
             String MacAddress = args.getString(0);
             String ImageUrl = args.getString(1);
