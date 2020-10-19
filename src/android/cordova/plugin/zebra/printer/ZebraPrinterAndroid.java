@@ -239,7 +239,7 @@ private Connection connection;
     }
 
 
-    private void GetPrinterLanguage(String MacAddress, CallbackContext callbackContext) throws ConnectionException, JSONException {
+    private void GetPrinterLanguage(String MacAddress, CallbackContext callbackContext)  {
 
         connection = new BluetoothConnection(MacAddress);
         try {
