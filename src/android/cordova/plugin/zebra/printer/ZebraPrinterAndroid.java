@@ -59,7 +59,7 @@ private Connection connection;
 
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException, ConnectionException {
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext)  {
     
 
         if (action.equals("PrintAction")) {
