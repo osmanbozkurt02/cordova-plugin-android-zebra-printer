@@ -223,10 +223,7 @@ private Connection connection;
 
                 } catch (ZebraPrinterLanguageUnknownException e) {
 
-                } catch (JSONException e) {
-
-                    callbackContext.error(""+e.getMessage());
-                } finally {
+                }  finally {
                     bitmap.recycle();
 
                     Looper.myLooper().quit();
