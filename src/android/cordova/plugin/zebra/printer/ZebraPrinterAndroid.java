@@ -55,32 +55,59 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 //    }
 
 private Connection connection;
- 
 
 
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext)  {
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
         if (action.equals("PrintAction")) {
             String MacAddress = args.getString(0);
             String ImageUrl = args.getString(1);
-            this.PrintImagePreview(MacAddress, ImageUrl, callbackContext);
+            try {
+                this.PrintImagePreview(MacAddress, ImageUrl, callbackContext);
+            } catch (JSONException e) {
+                //TODO: handle exception
+            }
+            catch (ConnectionException e) {
+                //TODO: handle exception
+            }
+   
             return true;
         }else
         if (action.equals("SendCommandToPrinter")) {
             String MacAddress = args.getString(0);
             String CommandText = args.getString(1);
-            this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
+
+            try {
+                this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
+            } catch (JSONException e) {
+                //TODO: handle exception
+            }
+            catch (ConnectionException e) {
+                //TODO: handle exception
+            }
+
+        
             return true;
         } else  if (action.equals("GetPrinterLanguage")) {
             String MacAddress = args.getString(0);
-            this.GetPrinterLanguage(MacAddress, callbackContext);
+
+            try {
+                this.GetPrinterLanguage(MacAddress, callbackContext);
+            } catch (JSONException e) {
+                //TODO: handle exception
+            }
+            catch (ConnectionException e) {
+                //TODO: handle exception
+            }
+
+      
             return true;
         }
         return false;
     }
 
-    private void PrintImagePreview(String MacAddress, String ImageUrl, CallbackContext callbackContext) throws JSONException, ConnectionException {
+    private void PrintImagePreview(String MacAddress, String ImageUrl, CallbackContext callbackContext) {
         if (MacAddress != null && MacAddress.length() > 0) {
             PrintImage(callbackContext, ImageUrl, MacAddress);
 
@@ -236,7 +263,7 @@ private Connection connection;
 
 
 
-    private void SendCommandToPrinter(String CommandText, String MacAddress, CallbackContext callbackContext)  throws JSONException, ConnectionException {
+    private void SendCommandToPrinter(String CommandText, String MacAddress, CallbackContext callbackContext) {
 
 
         new Thread(new Runnable() {
