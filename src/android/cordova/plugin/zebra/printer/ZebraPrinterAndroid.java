@@ -35,8 +35,6 @@ import android.os.Looper;
  * This class echoes a string called from JavaScript.
  */
 public class ZebraPrinterAndroid extends CordovaPlugin {
-    
-        private Connection connection;
 
 //    @Override
 //    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -56,12 +54,39 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 //        }
 //    }
 
+private Connection connection;
+
+@Override
+public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+    Log.v("EMO", "Execute on ZebraPrinter Plugin called");
+    switch (action) {
+        case "discover":
+            this.discover(callbackContext);
+            return true;
+        case "connect":
+            this.connect(args, callbackContext);
+            return true;
+        case "print":
+            this.print(args, callbackContext);
+            return true;
+        case "isConnected":
+            this.isConnected(callbackContext);
+            return true;
+        case "disconnect":
+            this.disconnect(callbackContext);
+            return true;
+        case "printerStatus":
+            this.printerStatus(callbackContext);
+            return true;
+    }
+    return false;
+}
 
 
 
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext)  {
         if (action.equals("PrintAction")) {
             String MacAddress = args.getString(0);
             String ImageUrl = args.getString(1);
@@ -81,7 +106,7 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
         return false;
     }
 
-    private void PrintImagePreview(String MacAddress, String ImageUrl, CallbackContext callbackContext) {
+    private void PrintImagePreview(String MacAddress, String ImageUrl, CallbackContext callbackContext) throws JSONException, ConnectionException {
         if (MacAddress != null && MacAddress.length() > 0) {
             PrintImage(callbackContext, ImageUrl, MacAddress);
 
@@ -237,7 +262,7 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 
 
 
-    private void SendCommandToPrinter(String CommandText, String MacAddress, CallbackContext callbackContext) {
+    private void SendCommandToPrinter(String CommandText, String MacAddress, CallbackContext callbackContext)  throws JSONException, ConnectionException {
 
 
         new Thread(new Runnable() {
