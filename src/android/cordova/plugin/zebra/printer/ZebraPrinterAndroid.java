@@ -55,33 +55,7 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 //    }
 
 private Connection connection;
-
-@Override
-public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
-    Log.v("EMO", "Execute on ZebraPrinter Plugin called");
-    switch (action) {
-        case "discover":
-            this.discover(callbackContext);
-            return true;
-        case "connect":
-            this.connect(args, callbackContext);
-            return true;
-        case "print":
-            this.print(args, callbackContext);
-            return true;
-        case "isConnected":
-            this.isConnected(callbackContext);
-            return true;
-        case "disconnect":
-            this.disconnect(callbackContext);
-            return true;
-        case "printerStatus":
-            this.printerStatus(callbackContext);
-            return true;
-    }
-    return false;
-}
-
+ 
 
 
 
