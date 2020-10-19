@@ -62,7 +62,7 @@ private Connection connection;
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext)  {
     
 
-        if (action.equals("PrintAction")) {
+        if (action.equals("PrintImage")) {
             String MacAddress = null;
             String ImageUrl = "";
             try {
