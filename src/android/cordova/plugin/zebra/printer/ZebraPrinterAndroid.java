@@ -35,6 +35,8 @@ import android.os.Looper;
  * This class echoes a string called from JavaScript.
  */
 public class ZebraPrinterAndroid extends CordovaPlugin {
+    
+        private Connection connection;
 
 //    @Override
 //    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -54,53 +56,35 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 //        }
 //    }
 
-private Connection connection;
+
 
 
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext)  {
-    
-
-        if (action.equals("PrintImage")) {
-            String MacAddress = null;
-            String ImageUrl = "";
-            try {
-                MacAddress = args.getString(0);
-                 ImageUrl = args.getString(1);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
+    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException, ConnectionException {
+        if (action.equals("PrintAction")) {
+            String MacAddress = args.getString(0);
+            String ImageUrl = args.getString(1);
             this.PrintImagePreview(MacAddress, ImageUrl, callbackContext);
             return true;
         }else
         if (action.equals("SendCommandToPrinter")) {
-            String MacAddress = null;
-            String CommandText = "";
-            try {
-                MacAddress = args.getString(0);
-                CommandText = args.getString(1);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            String MacAddress = args.getString(0);
+            String CommandText = args.getString(1);
 
-            this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
+        try {
+                this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
+            } catch (Exception e) {
+                callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
+            }
+            
+            
             return true;
         } else  if (action.equals("GetPrinterLanguage")) {
-            String MacAddress = null;
-            try {
-                MacAddress = args.getString(0);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-                this.GetPrinterLanguage(MacAddress, callbackContext);
-
+            String MacAddress = args.getString(0);
+            this.GetPrinterLanguage(MacAddress, callbackContext);
             return true;
         }
-        
-
         return false;
     }
 
@@ -223,7 +207,10 @@ private Connection connection;
 
                 } catch (ZebraPrinterLanguageUnknownException e) {
 
-                }  finally {
+                } catch (JSONException e) {
+
+                    callbackContext.error(""+e.getMessage());
+                } finally {
                     bitmap.recycle();
 
                     Looper.myLooper().quit();
@@ -236,33 +223,19 @@ private Connection connection;
     }
 
 
-    private void GetPrinterLanguage(String MacAddress, CallbackContext callbackContext)  {
+    private void GetPrinterLanguage(String MacAddress, CallbackContext callbackContext) throws ConnectionException, JSONException {
 
         connection = new BluetoothConnection(MacAddress);
-        try {
-            connection.open();
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-        }
+        connection.open();
 
-         String printerLanguage = "";
-        try {
-            printerLanguage = SGD.GET("device.languages", connection);
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-        }
+        final String printerLanguage = SGD.GET("device.languages", connection);
 
         final String displayPrinterLanguage = "Printer Language is " + printerLanguage;
 
 
         JSONObject obj = new JSONObject();
-        try {
-            obj.put("printerLanguage", ""+connection);
-            obj.put("displayPrinterLanguage", ""+printerLanguage);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        obj.put("printerLanguage", ""+connection);
+        obj.put("displayPrinterLanguage", ""+printerLanguage);
 
         callbackContext.success(obj);
 
@@ -271,13 +244,19 @@ private Connection connection;
 
 
 
-    private void SendCommandToPrinter(String CommandText, String MacAddress, CallbackContext callbackContext) {
+    private void SendCommandToPrinter(String MacAddress, String CommandText , CallbackContext callbackContext) {
 
 
         new Thread(new Runnable() {
             public void run() {
 
                 try {
+                    new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(MacAddress)
+                    .setMessage(CommandText)
+                    .setCancelable(false).show();
+
+
                     Looper.prepare();
                     connection = new BluetoothConnection(MacAddress);
                     connection.open();
@@ -314,11 +293,14 @@ private Connection connection;
 
 
                 } catch (ConnectionException e) {
-
+                    callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
 
                 } catch (ZebraPrinterLanguageUnknownException e) {
+                    callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
+                } catch (JSONException e) {
 
-                }   finally {
+                    callbackContext.error(""+e.getMessage());
+                } finally {
 
 
                     Looper.myLooper().quit();
