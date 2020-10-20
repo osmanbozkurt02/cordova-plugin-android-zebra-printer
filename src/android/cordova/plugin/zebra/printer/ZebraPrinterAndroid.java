@@ -263,7 +263,11 @@ private Connection connection;
             e.printStackTrace();
         }
 
-        connection.close();
+        try {
+            connection.close();
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
 
         callbackContext.success(obj);
 
