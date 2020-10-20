@@ -71,7 +71,14 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
         if (action.equals("SendCommandToPrinter")) {
             String MacAddress = args.getString(0);
             String CommandText = args.getString(1);
-            this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
+
+                     try {
+                this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
+            } catch (Exception e) {
+                callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
+            }
+            
+            
             return true;
         } else  if (action.equals("GetPrinterLanguage")) {
             String MacAddress = args.getString(0);
