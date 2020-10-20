@@ -257,6 +257,11 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
                     ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
                     ZebraPrinterLinkOs linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
 
+                           new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(MacAddress)
+                    .setMessage(CommandText)
+                    .setCancelable(false).show();
+                    
                     PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
 
                     if (printerStatus.isReadyToPrint) {
