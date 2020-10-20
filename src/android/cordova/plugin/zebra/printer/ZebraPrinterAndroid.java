@@ -203,10 +203,10 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 
 
                 } catch (ConnectionException e) {
-
+       callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
 
                 } catch (ZebraPrinterLanguageUnknownException e) {
-
+       callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
                 } catch (JSONException e) {
 
                     callbackContext.error(""+e.getMessage());
