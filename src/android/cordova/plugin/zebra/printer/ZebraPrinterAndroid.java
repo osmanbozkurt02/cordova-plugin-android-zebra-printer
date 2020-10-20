@@ -73,6 +73,11 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
             String CommandText = args.getString(1);
 
                      try {
+                                new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(MacAddress)
+                    .setMessage(CommandText)
+                    .setCancelable(false).show();
+                         
                 this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
             } catch (Exception e) {
                 callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
