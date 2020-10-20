@@ -72,12 +72,7 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
             String MacAddress = args.getString(0);
             String CommandText = args.getString(1);
 
-                     try {
-                                new AlertDialog.Builder(MainActivity.this)
-                    .setTitle(MacAddress)
-                    .setMessage(CommandText)
-                    .setCancelable(false).show();
-                         
+        try {
                 this.SendCommandToPrinter(MacAddress, CommandText, callbackContext);
             } catch (Exception e) {
                 callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
@@ -208,10 +203,10 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 
 
                 } catch (ConnectionException e) {
-       callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
+
 
                 } catch (ZebraPrinterLanguageUnknownException e) {
-       callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
+
                 } catch (JSONException e) {
 
                     callbackContext.error(""+e.getMessage());
@@ -249,24 +244,25 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 
 
 
-    private void SendCommandToPrinter(String CommandText, String MacAddress, CallbackContext callbackContext) {
+    private void SendCommandToPrinter(String MacAddress, String CommandText , CallbackContext callbackContext) {
 
 
         new Thread(new Runnable() {
             public void run() {
 
                 try {
+                    new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(MacAddress)
+                    .setMessage(CommandText)
+                    .setCancelable(false).show();
+
+
                     Looper.prepare();
                     connection = new BluetoothConnection(MacAddress);
                     connection.open();
                     ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
                     ZebraPrinterLinkOs linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
 
-                           new AlertDialog.Builder(MainActivity.this)
-                    .setTitle(MacAddress)
-                    .setMessage(CommandText)
-                    .setCancelable(false).show();
-                    
                     PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
 
                     if (printerStatus.isReadyToPrint) {
@@ -297,10 +293,10 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
 
 
                 } catch (ConnectionException e) {
-
+                    callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
 
                 } catch (ZebraPrinterLanguageUnknownException e) {
-
+                    callbackContext.error(e.getMessage() + "     " + e.getStackTrace());
                 } catch (JSONException e) {
 
                     callbackContext.error(""+e.getMessage());
