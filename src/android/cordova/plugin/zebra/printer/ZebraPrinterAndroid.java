@@ -251,11 +251,7 @@ public class ZebraPrinterAndroid extends CordovaPlugin {
             public void run() {
 
                 try {
-                    new AlertDialog.Builder(MainActivity.this)
-                    .setTitle(MacAddress)
-                    .setMessage(CommandText)
-                    .setCancelable(false).show();
-
+              
 
                     Looper.prepare();
                     connection = new BluetoothConnection(MacAddress);
