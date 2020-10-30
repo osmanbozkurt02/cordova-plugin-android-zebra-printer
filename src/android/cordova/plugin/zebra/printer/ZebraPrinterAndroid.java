@@ -177,7 +177,6 @@ private Connection connection;
 
 
 
-
         new Thread(new Runnable() {
             public void run() {
 
@@ -186,31 +185,44 @@ private Connection connection;
                     connection = new BluetoothConnection(MacAddress);
                     connection.open();
                     ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
-                    ZebraPrinterLinkOs linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
+//                    ZebraPrinterLinkOs linkOsPrinter = null;
+//                    try {
+//                          linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
+//                    }catch (ConnectionException ex){
+//
+//                    }
+//                    catch (Exception ex){
+//
+//                    }
 
-                    PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
 
-                    if (printerStatus.isReadyToPrint) {
+
+                //    PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
+
+                    if (true) {
                         try {
-                                //   printer.sendCommand("! U1 do \"device.restore_defaults\" \"bluetooth\"");
-                                printer.printImage(new ZebraImageAndroid(bitmap), 0, 0, 0, 0, false);
+                            //   printer.sendCommand("! U1 do \"device.restore_defaults\" \"bluetooth\"");
+                            printer.printImage(new ZebraImageAndroid(bitmap), 0, 0, 0, 0, false);
                             callbackContext.success("");
 
 
-                        }  catch (ConnectionException e) {
-                            callbackContext.error(""+e.getMessage());
+                        } catch (ConnectionException e) {
+                            callbackContext.error("" + e.getMessage());
                         }
-                    } else if (printerStatus.isHeadOpen) {
-
-                        callbackContext.error("Lütfen Yazdırmak için Yazıcı Kafasını Kapatın.");
-                    } else if (printerStatus.isPaused) {
-
-                        callbackContext.error("Yazıcı durdurulmuşttur.");
-
-                    } else if (printerStatus.isPaperOut) {
-
-                        callbackContext.error("Yazıcının kağıdı bitmiştir.");
-                    } else {
+                    }
+//                    else if (printerStatus.isHeadOpen) {
+//
+//                        callbackContext.error("Lütfen Yazdırmak için Yazıcı Kafasını Kapatın.");
+//                    } else if (printerStatus.isPaused) {
+//
+//                        callbackContext.error("Yazıcı durdurulmuşttur.");
+//
+//                    }
+//                    else if (printerStatus.isPaperOut) {
+//
+//                        callbackContext.error("Yazıcının kağıdı bitmiştir.");
+//                    }
+                    else {
 
                         callbackContext.error("Lütfen yazıcı bağlantınızı kontrol edin.");
                     }
@@ -223,7 +235,7 @@ private Connection connection;
 
                 } catch (ZebraPrinterLanguageUnknownException e) {
 
-                }  finally {
+                } finally {
                     bitmap.recycle();
 
                     Looper.myLooper().quit();
