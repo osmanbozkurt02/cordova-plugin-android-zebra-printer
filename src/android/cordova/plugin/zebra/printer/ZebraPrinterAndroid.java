@@ -299,30 +299,32 @@ private Connection connection;
                     connection = new BluetoothConnection(MacAddress);
                     connection.open();
                     ZebraPrinter printer = ZebraPrinterFactory.getInstance(connection);
-                    ZebraPrinterLinkOs linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
+                 //   ZebraPrinterLinkOs linkOsPrinter = ZebraPrinterFactory.createLinkOsPrinter(printer);
 
-                    PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
+                  //  PrinterStatus printerStatus = (linkOsPrinter != null) ? linkOsPrinter.getCurrentStatus() : printer.getCurrentStatus();
 
-                    if (printerStatus.isReadyToPrint) {
+                    if (true) {
                         try {
-                          printer.sendCommand(CommandText);
+                            printer.sendCommand(CommandText);
                             callbackContext.success("");
 
 
-                        }  catch (ConnectionException e) {
-                            callbackContext.error(""+e.getMessage());
+                        } catch (ConnectionException e) {
+                            callbackContext.error("" + e.getMessage());
                         }
-                    } else if (printerStatus.isHeadOpen) {
-
-                        callbackContext.error("Lütfen Yazdırmak için Yazıcı Kafasını Kapatın.");
-                    } else if (printerStatus.isPaused) {
-
-                        callbackContext.error("Yazıcı durdurulmuşttur.");
-
-                    } else if (printerStatus.isPaperOut) {
-
-                        callbackContext.error("Yazıcının kağıdı bitmiştir.");
-                    } else {
+                    } 
+//                    else if (printerStatus.isHeadOpen) {
+//
+//                        callbackContext.error("Lütfen Yazdırmak için Yazıcı Kafasını Kapatın.");
+//                    } else if (printerStatus.isPaused) {
+//
+//                        callbackContext.error("Yazıcı durdurulmuşttur.");
+//
+//                    } else if (printerStatus.isPaperOut) {
+//
+//                        callbackContext.error("Yazıcının kağıdı bitmiştir.");
+//                    } 
+                    else {
 
                         callbackContext.error("Lütfen yazıcı bağlantınızı kontrol edin.");
                     }
@@ -335,7 +337,7 @@ private Connection connection;
 
                 } catch (ZebraPrinterLanguageUnknownException e) {
 
-                }   finally {
+                } finally {
 
 
                     Looper.myLooper().quit();
@@ -344,6 +346,7 @@ private Connection connection;
             }
 
         }).start();
+
 
     }
 
