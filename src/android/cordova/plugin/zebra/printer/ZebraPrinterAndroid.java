@@ -202,7 +202,7 @@ private Connection connection;
                     if (true) {
                         try {
                             //   printer.sendCommand("! U1 do \"device.restore_defaults\" \"bluetooth\"");
-                            SGD.SET("! U1 setvar \"ezpl.media_type\" \"continuous\" media.feed_length",( bitmap.getHeight()),connection);
+                             SGD.SET("zpl.label_length",( bitmap.getHeight()),connection);
                             printer.printImage(new ZebraImageAndroid(bitmap), 0, 0, 0, 0, false);
                             callbackContext.success("");
 
