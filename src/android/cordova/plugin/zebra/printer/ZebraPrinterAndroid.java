@@ -204,6 +204,7 @@ private Connection connection;
                             //   printer.sendCommand("! U1 do \"device.restore_defaults\" \"bluetooth\"");
                              SGD.SET("zpl.label_length",( bitmap.getHeight()),connection);
                         //    printer.printImage(new ZebraImageAndroid(bitmap), 0, 0, 0, 0, false);
+                            SGD.SET("device.languages","zpl", connection);
                                printer.printImage(new ZebraImageAndroid(bitmap),  0, 0,(bitmap.getWidth()-50), bitmap.getHeight(), false);
                             callbackContext.success("");
 
